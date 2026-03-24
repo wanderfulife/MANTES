@@ -1,37 +1,35 @@
 export const templateSurveyQuestions = [
 
-    // Q1 - Commune d'origine
     {
         id: "Q1",
-        text: "De quelle commune venez vous ?",
-        type: 'commune',
-        next: "Q2"
-    },
-
-    // Q2 - Motif origine
-    {
-        id: "Q2",
-        text: "Ce lieu est-il .... ?",
+        text: "Êtes-vous arrivés en gare en voiture ?",
         type: 'singleChoice',
         options: [
-            { id: 1, text: "Votre domicile", next: "Q3" },
-            { id: 2, text: "Votre lieu de travail habituel", next: "Q3" },
-            { id: 3, text: "Un lieu de rendez-vous professionnel", next: "Q3" },
-            { id: 4, text: "Votre établissement scolaire", next: "Q3" },
-            { id: 5, text: "Un lieu d'achats, courses, ...", next: "Q3" },
-            { id: 6, text: "Un lieu de loisirs", next: "Q3" }
+            { id: 1, text: "OUI", next: "Q2" },
+            { id: 2, text: "NON", next: "Q3" }
         ]
     },
 
-    // Q3 - Commune de destination
+    {
+        id: "Q2",
+        text: "Où êtes-vous garé ?",
+        type: 'singleChoice',
+        options: [
+            { id: 1, text: "Parking Relais Nord, Mantes la Jolie", next: "Q3" },
+            { id: 2, text: "Parking Relais Sud, Mantes la Ville", next: "Q3" },
+            { id: 3, text: "Espace public Nord, Mantes la Jolie", next: "Q3" },
+            { id: 4, text: "Espace public Sud, Mantes la Ville", next: "Q3" }
+        ]
+    },
+
     {
         id: "Q3",
-        text: "Dans quelle commune vous ?",
+        text: "De quelle commune venez vous ?",
         type: 'commune',
+        note: "Si l'origine est la commune où est située la gare ou une commune limitrophe à moins de 2 km, demander le quartier/secteur d'origine.",
         next: "Q4"
     },
 
-    // Q4 - Motif destination
     {
         id: "Q4",
         text: "Ce lieu est-il .... ?",
@@ -46,36 +44,70 @@ export const templateSurveyQuestions = [
         ]
     },
 
-    // Q5 - Fréquence du trajet
     {
         id: "Q5",
+        text: "Pour quelle raison vous stationnez vous autour de la gare ?",
+        type: 'singleChoice',
+        condition: "Q1 == 1",
+        options: [
+            { id: 1, text: "Prendre le train", next: "Q6" },
+            { id: 2, text: "Prendre un bus", next: "Q6" },
+            { id: 3, text: "Accompagner un voyageur", next: "Q6" },
+        ]
+    },
+
+    {
+        id: "Q6",
+        text: "Dans quelle commune allez vous ?",
+        type: 'commune',
+        next: "Q7"
+    },
+
+    {
+        id: "Q7",
+        text: "Ce lieu est-il .... ?",
+        type: 'singleChoice',
+        options: [
+            { id: 1, text: "Votre domicile", next: "Q8" },
+            { id: 2, text: "Votre lieu de travail habituel", next: "Q8" },
+            { id: 3, text: "Un lieu de rendez-vous professionnel", next: "Q8" },
+            { id: 4, text: "Votre établissement scolaire", next: "Q8" },
+            { id: 5, text: "Un lieu d'achats, courses, ...", next: "Q8" },
+            { id: 6, text: "Un lieu de loisirs", next: "Q8" }
+        ]
+    },
+
+    {
+        id: "Q8",
+        text: "Combien de temps resterez vous stationné ?",
+        type: 'singleChoice',
+        condition: "Q1 == 1",
+        options: [
+            { id: 1, text: "Moins de 2 heures", next: "Q9" },
+            { id: 2, text: "De 2h à 4h", next: "Q9" },
+            { id: 3, text: "De 4h à 6h", next: "Q9" },
+            { id: 4, text: "Plus de 6h", next: "Q9" }
+        ]
+    },
+
+    {
+        id: "Q9",
         text: "A quelle fréquence faites-vous le trajet d'aujourd'hui ?",
         type: 'singleChoice',
         options: [
-            { id: 1, text: "En semaine, entre 3 et 5 fois", next: "Q6" },
-            { id: 2, text: "En semaine, moins de 3 fois", next: "Q6" },
-            { id: 3, text: "Le week-end principalement", next: "Q6" },
-            { id: 4, text: "Moins d'une fois par semaine", next: "Q6" },
-            { id: 5, text: "Moins d'une fois par mois", next: "Q6" }
+            { id: 1, text: "En semaine, entre 3 et 5 fois", next: "Q10" },
+            { id: 2, text: "En semaine, moins de 3 fois", next: "Q10" },
+            { id: 3, text: "Le week-end principalement", next: "Q10" },
+            { id: 4, text: "Moins d'une fois par semaine", next: "Q10" },
+            { id: 5, text: "Moins d'une fois par mois", next: "Q10" }
         ]
     },
 
-    // Q6 - Utilisation du PEM
     {
-        id: "Q6",
-        text: "Utilisez vous ou non le PEM à proximité ?",
+        id: "Q10",
+        text: "Seriez-vous prêts à aller vous garer au sud de la gare pendant les travaux de ce parking (qui sera fermé), ou trouverez-vous d'autres solutions ?",
         type: 'singleChoice',
-        options: [
-            { id: 1, text: "OUI", next: "Q7" },
-            { id: 2, text: "NON", next: "Q7" }
-        ]
-    },
-
-    // Q7 - Parking sud pendant les travaux
-    {
-        id: "Q7",
-        text: "Seriez-vous prêts à aller vous garer au sud de la gare pendant les travaux de ce parking (qui sera fermé), ou trouveriez-vous d'autres solutions ?",
-        type: 'singleChoice',
+        condition: "Q2 == 1",
         options: [
             { id: 1, text: "OUI", next: "end" },
             { id: 2, text: "NON", next: "end" }
