@@ -1,6 +1,17 @@
 export const templateSurveyQuestions = [
 
     {
+        id: "Q0",
+        text: "Lieu d'interview",
+        type: 'singleChoice',
+        options: [
+            { id: 1, text: "Voirie", next: "Q3" },
+            { id: 2, text: "En gare", next: "Q1" },
+            { id: 3, text: "Parking", next: "Q3" }
+        ]
+    },
+
+    {
         id: "Q1",
         text: "Êtes-vous arrivés en gare en voiture ?",
         type: 'singleChoice',
@@ -48,7 +59,7 @@ export const templateSurveyQuestions = [
         id: "Q5",
         text: "Pour quelle raison vous stationnez vous autour de la gare ?",
         type: 'singleChoice',
-        condition: "Q1 == 1",
+        condition: "Q1 == 1 || Q0 == 3",
         options: [
             { id: 1, text: "Prendre le train", next: "Q6" },
             { id: 2, text: "Prendre un bus", next: "Q6" },
@@ -81,7 +92,7 @@ export const templateSurveyQuestions = [
         id: "Q8",
         text: "Combien de temps resterez vous stationné ?",
         type: 'singleChoice',
-        condition: "Q1 == 1",
+        condition: "Q1 == 1 || Q0 == 3",
         options: [
             { id: 1, text: "Moins de 2 heures", next: "Q9" },
             { id: 2, text: "De 2h à 4h", next: "Q9" },
@@ -107,7 +118,7 @@ export const templateSurveyQuestions = [
         id: "Q10",
         text: "Seriez-vous prêts à aller vous garer au sud de la gare pendant les travaux de ce parking (qui sera fermé), ou trouverez-vous d'autres solutions ?",
         type: 'singleChoice',
-        condition: "Q2 == 1",
+        condition: "Q0 == 3",
         options: [
             { id: 1, text: "OUI", next: "end" },
             { id: 2, text: "NON", next: "end" }
